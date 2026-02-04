@@ -60,4 +60,15 @@ class ShoppingCartTest {
 
     }
 
+    @Test
+    void shouldApplyDiscount() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        Product apple = new Product("1","Äpple", 100.0);
+        shoppingCart.addProduct(apple);
+
+        shoppingCart.applyDiscount(20.0);
+
+        assertEquals(80.0, shoppingCart.calculateTotalDiscount());
+    }
+
 }

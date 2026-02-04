@@ -36,4 +36,19 @@ public class ShoppingCart {
             items.put(product, quantity);
         }
     }
+
+    private double discountPercentage = 0.0;
+
+    public void applyDiscount(double percentage) {
+        this.discountPercentage = percentage;
+    }
+
+    public double calculateTotalDiscount() {
+        double subtotal = 0;
+        for (var entry : items.entrySet()) {
+            subtotal += entry.getKey().price() * entry.getValue();
+        }
+        // Applicera rabatten
+        return subtotal * (1 - (discountPercentage / 100));
+    }
 }
