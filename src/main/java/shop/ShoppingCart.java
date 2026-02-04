@@ -9,9 +9,18 @@ public class ShoppingCart {
 
     private Map<Product, Integer> items = new HashMap<>();
 
+    // Lägg till produkt
+
     public void addProduct(Product product) {
         items.put(product, items.getOrDefault(product, 0) + 1);
     }
+
+    // Ta bort produkt
+
+    public void removeProduct(Product product) {
+        items.remove(product);
+    }
+
 
     public double calculateTotal() {
         double total = 0;
@@ -21,17 +30,18 @@ public class ShoppingCart {
         return total;
     }
 
+
     public int getQuantity(Product product) {
         return items.getOrDefault(product, 0);
     }
 
-    public void removeProduct(Product product) {
-        items.remove(product);
-    }
+
 
     public void updateQuantity(Product product, int quantity) {
-        if (quantity <= 0) {
-            removeProduct(product);
+        if (quantity < 0) {
+            throw new IllegalArgumentException("Quantity cannot be negative");
+        }if (quantity == 0)  {
+            items.remove(product);
         }else  {
             items.put(product, quantity);
         }
@@ -40,7 +50,13 @@ public class ShoppingCart {
     private double discountPercentage = 0.0;
 
     public void applyDiscount(double percentage) {
-        this.discountPercentage = percentage;
+        if(percentage > 100.0) {
+            this.discountPercentage = 100.0;
+        }else if (percentage < 0.0) {
+            throw new IllegalArgumentException("Percentage cannot be negative");
+        }else  {
+            this.discountPercentage = percentage;
+        }
     }
 
     public double calculateTotalDiscount() {
@@ -51,4 +67,7 @@ public class ShoppingCart {
         // Applicera rabatten
         return subtotal * (1 - (discountPercentage / 100));
     }
+
+
+
 }
