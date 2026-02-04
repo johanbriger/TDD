@@ -12,13 +12,12 @@ class ShoppingCartTest {
 
     @BeforeEach
     void setUp() {
-        // Körs innan varje test för att nollställa tillståndet
         cart = new ShoppingCart();
         apple = new Product("1", "Äpple", 10.0);
         banana = new Product("2", "Banan", 20.0);
     }
 
-    // --- Grundläggande funktionalitet ---
+
 
     @Test
     void shouldReturnZeroTotalForEmptyCart() {
@@ -58,7 +57,7 @@ class ShoppingCartTest {
         assertEquals(50.0, cart.calculateTotal());
     }
 
-    // --- Borttagning av varor ---
+    // Borttagning av varor
 
     @Test
     void shouldRemoveProductCompletely() {
@@ -78,7 +77,7 @@ class ShoppingCartTest {
         assertFalse(cart.calculateTotal() > 0);
     }
 
-    // --- Rabatter ---
+    // Rabatter
 
     @Test
     void shouldApplyDiscountPercentage() {
