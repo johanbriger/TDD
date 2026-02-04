@@ -22,6 +22,8 @@ class ShoppingCartTest {
         assertEquals(10.0, shoppingCart.calculateTotal());
     }
 
+
+
     @Test
     void shouldIncreaseQuantityWhenAddingExistingProduct() {
         ShoppingCart shoppingCart = new ShoppingCart();
@@ -32,6 +34,30 @@ class ShoppingCartTest {
 
         assertEquals(20.0, shoppingCart.calculateTotal());
         assertEquals(2, shoppingCart.getQuantity(apple));
+    }
+
+    @Test
+    void shouldRemoveProductCompletelyFromCart() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        Product apple = new Product("1","Äpple", 10.0);
+        shoppingCart.addProduct(apple);
+
+        shoppingCart.removeProduct(apple);
+
+        assertEquals(0.0, shoppingCart.getQuantity(apple));
+        assertEquals(0.0, shoppingCart.calculateTotal());
+    }
+
+    @Test
+    void shouldUpdateQuantity() {
+        ShoppingCart shoppingCart = new ShoppingCart();
+        Product apple = new Product("1","Äpple", 10.0);
+
+        shoppingCart.updateQuantity(apple, 5);
+
+        assertEquals(5, shoppingCart.getQuantity(apple));
+        assertEquals(50.0, shoppingCart.calculateTotal());
+
     }
 
 }
