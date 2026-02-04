@@ -1,21 +1,27 @@
 package shop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShoppingCart {
 
-    private List<Product> products = new ArrayList<>();
+    private Map<Product, Integer> items = new HashMap<>();
 
     public void addProduct(Product product) {
-        products.add(product);
+        items.put(product, items.getOrDefault(product, 0) + 1);
     }
 
     public double calculateTotal() {
         double total = 0;
-        for (Product p : products) {
-            total += p.price();
+        for (var entry : items.entrySet()) {
+            total += entry.getKey().price() * entry.getValue();
         }
         return total;
+    }
+
+    public int getQuantity(Product product) {
+        return items.getOrDefault(product, 0);
     }
 }
