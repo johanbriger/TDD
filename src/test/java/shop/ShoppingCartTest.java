@@ -51,7 +51,7 @@ class ShoppingCartTest {
     @Test
     void shouldUpdateQuantityDirectly() {
         cart.addProduct(apple);
-        cart.updateQuantity(apple, 5); // Ändra från 1 till 5
+        cart.updateQuantity(apple, 5);
 
         assertEquals(5, cart.getQuantity(apple));
         assertEquals(50.0, cart.calculateTotal());
@@ -99,7 +99,6 @@ class ShoppingCartTest {
     void shouldThrowExceptionForNegativeQuantityUpdate() {
         cart.addProduct(apple);
 
-        // Vi förväntar oss ett undantag (Exception)
         assertThrows(IllegalArgumentException.class, () -> {
             cart.updateQuantity(apple, -5);
         }, "Ska inte gå att sätta negativt antal");
@@ -116,7 +115,7 @@ class ShoppingCartTest {
     void shouldCapDiscountAt100Percent() {
         cart.addProduct(apple);
 
-        // Om vi försöker ge 150% rabatt ska det hanteras som 100% (gratis)
+        // Max rabatt kan bli 100% vad vi än skriver.
         cart.applyDiscount(150.0);
 
         assertEquals(0.0, cart.calculateTotal(), "Priset kan inte bli lägre än 0");
